@@ -34,6 +34,8 @@ Description: This is a communications servers designed to exchange
 #define ERR1 -1
 //#define BUFSIZ 4096
 
+#define DEBUG 0
+
 void *talk(void *);
 int generateThreads(int []);
 
@@ -50,10 +52,7 @@ Description: The main function processes the command line to get the
 -------------------------------------------------------------------*/
 int main(int argc, char *argv[])
 {
-    fprintf(stderr, "entering server.c:main\n");
-    fprintf(stderr, "argc: %d\n", argc);
-    fprintf(stderr, "argv[1] %s\n", argv[1]);
-    fprintf(stderr, "argv[2] %s\n", argv[2]);
+    //fprintf(stderr, "SERVER.C:MAIN()\n");
 
     int fds[2];  /* fds[0] remote input, fds[1], remote output */
     int returnVal;
@@ -75,8 +74,6 @@ int main(int argc, char *argv[])
     }
     else
     {
-        fprintf(stderr, "server: args are ok, calling generateThreads\n");
-
         fds[0] = atoi(argv[1]);
         fds[1] = atoi(argv[2]);
 
@@ -84,8 +81,7 @@ int main(int argc, char *argv[])
         else returnVal = 1;
 
     }
-    fprintf(stderr, "retval:%d\n", returnVal);
-    printf("All done! (%s)\n", getpid());
+    //printf("All done! (%s)\n", getpid());
     printf("All done!\n");
     return(returnVal);
 }
@@ -105,23 +101,24 @@ Description: This function is responsible for creating two threads
 -------------------------------------------------------------------*/
 int generateThreads(int fds[])
 {
+    if (DEBUG) fprintf(stderr, "SERVER.C:GENERATETHREADS(%d %d)\n", fds[0], fds[1]);
+
     int returnVal = OK;  /* return code */
 
     pthread_t pt;
 
-    /*
-    pthread_create(&pthread1, NULL, talk, &fds[0]);
-    pthread_create(&pthread2, NULL, talk, &fds[1]);
-    pthread_join(pthread1, NULL);
-    pthread_join(pthread2, NULL);
-    */
-
-    sleep(2);
-    pthread_create(&pt, NULL, &talk, &fds);
-    //pthread_join(pt, NULL);
+    sleep(1);
+    pthread_create(&pt, NULL, talk, fds);
 
     /* lets print a welcome message */
     printf("Server Connected (%d)\n", getpid());
+
+
+
+    pthread_join(pt, NULL);
+
+    //close(fds[0]);
+    //close(fds[1]);
 
     return(returnVal);
 }
@@ -139,6 +136,7 @@ Description: This is the function executed by a thread for
 -------------------------------------------------------------------*/
 void *talk(void *fdPtr)
 {
+    //fprintf(stderr, "SERVER.C:TALK()\n");
     int *fds = (int *) fdPtr;  /* cast parameter into an integer pointer */
     int num;                   /* for storing number of characters read */
     char buffer[BUFSIZ];       /* buffer for reading characters and

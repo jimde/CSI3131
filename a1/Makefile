@@ -12,8 +12,5 @@ server: server.c
 clean:
 	rm -f $(BUILD_DIR)/*
 
-test:
-	$(CC) test.c -o $(BUILD_DIR)/test -lpthread
-
 gdb:
 	gdb -x debug.gdb $(BUILD_DIR)/user
