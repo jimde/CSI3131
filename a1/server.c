@@ -29,12 +29,12 @@ Description: This is a communications servers designed to exchange
 
 #include <stdio.h>
 #include <pthread.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
 #define OK 0
 #define ERR1 -1
-//#define BUFSIZ 4096
-
-#define DEBUG 0
 
 void *talk(void *);
 int generateThreads(int []);
@@ -52,8 +52,6 @@ Description: The main function processes the command line to get the
 -------------------------------------------------------------------*/
 int main(int argc, char *argv[])
 {
-    //fprintf(stderr, "SERVER.C:MAIN()\n");
-
     int fds[2];  /* fds[0] remote input, fds[1], remote output */
     int returnVal;
 
@@ -74,15 +72,10 @@ int main(int argc, char *argv[])
     }
     else
     {
-        fds[0] = atoi(argv[1]);
-        fds[1] = atoi(argv[2]);
-
         if(generateThreads(fds) == OK) returnVal = 0;
         else returnVal = 1;
-
     }
-    //printf("All done! (%s)\n", getpid());
-    printf("All done!\n");
+    printf("All done! (%d)\n", getpid());
     return(returnVal);
 }
 
@@ -101,8 +94,6 @@ Description: This function is responsible for creating two threads
 -------------------------------------------------------------------*/
 int generateThreads(int fds[])
 {
-    if (DEBUG) fprintf(stderr, "SERVER.C:GENERATETHREADS(%d %d)\n", fds[0], fds[1]);
-
     int returnVal = OK;  /* return code */
 
     pthread_t pt;
@@ -136,7 +127,6 @@ Description: This is the function executed by a thread for
 -------------------------------------------------------------------*/
 void *talk(void *fdPtr)
 {
-    //fprintf(stderr, "SERVER.C:TALK()\n");
     int *fds = (int *) fdPtr;  /* cast parameter into an integer pointer */
     int num;                   /* for storing number of characters read */
     char buffer[BUFSIZ];       /* buffer for reading characters and
@@ -158,7 +148,7 @@ void *talk(void *fdPtr)
             write(fds[1],buffer,strlen(buffer));
             break;  /* break out of loop */
         }
-        else if(strncmp("exit",buffer,strlen("exit")) == 0)
+        else if(strncmp("ext",buffer,strlen("ext")) == 0)
         {  /* request from local to terminate */
             break;  /* break out of loop */
         }

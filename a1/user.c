@@ -21,9 +21,10 @@ Description: This program is designed to test the severs
 #include <sys/stat.h>
 #include <sys/fcntl.h>
 
+#include <stdlib.h>
 #include <signal.h>
-
-#define DEBUG 0
+#include <unistd.h>
+#include <string.h>
 
 char *usermessages[] = /* User messages */
 {
@@ -81,8 +82,8 @@ int main(int argc, char *argv[])
     int perBotrqueue;  /* read end of pipe */
     int perUserwqueue;  /* write end of pipe */
 
-    stdin_copy = dup(0);
-    stdout_copy = dup(1);
+    stdin_copy = dup(STDIN_FILENO);
+    stdout_copy = dup(STDOUT_FILENO);
 
     printf("Simulation starting\n");
 
@@ -108,8 +109,6 @@ int main(int argc, char *argv[])
     //close(server_fds[0]);
     //close(server_fds[1]);
     
-    //server_fds[0] = perBotrqueue;
-    //server_fds[1] = 1;
 
     initBotServer(perBotrqueue, server_fds, 0); /*define the arguments*/
     /* Create Server for User*/
@@ -125,17 +124,19 @@ int main(int argc, char *argv[])
 
     /* Lets do User now */
     setupUser(perUserwqueue);
-
+    
     sleep(5);
 
     printf("Simulation complete\n");
 
+    
     close(stdin_copy);
     close(stdout_copy);
     close(perBotrqueue);
     close(perUserwqueue);
     close(server_fds[0]);
     close(server_fds[1]);
+
 
     return 0;
 }
@@ -156,7 +157,6 @@ Assignment: Complete this function.  The code for generating
 ---------------------------------------------------------------*/
 int setupBot(void) // generates output -> pipe
 {
-    if (DEBUG) fprintf(stderr, "USER.C:SETUPBOT()\n");
     int fd[2];
 
     if (pipe(fd) == -1)
@@ -172,7 +172,7 @@ int setupBot(void) // generates output -> pipe
     if (fork() == 0) // child
     {
         //close(1);
-        dup2(fd[1], 1);
+        dup2(fd[1], STDOUT_FILENO);
         close(fd[0]);
         
 
@@ -190,7 +190,7 @@ int setupBot(void) // generates output -> pipe
             fflush(stdout);
             sleep(4);  /* wait for response */
         }
-        sleep(10);
+        sleep(2);
 
         //close(1);
         close(fd[1]);
@@ -217,9 +217,6 @@ Assignment: Complete this function.
 ---------------------------------------------------------------*/
 void initBotServer(int fd, int server_fds[], int c[]) /*define the parameters*/
 {
-    if (DEBUG) fprintf(stderr, "USER.C:INITBOTSERVER()\n");
-    /* Complete the function */
-
     pid_t pid = fork();
 
     if (pid == 0)
@@ -227,10 +224,10 @@ void initBotServer(int fd, int server_fds[], int c[]) /*define the parameters*/
         int fd_in = fd;
         int fd_out = server_fds[1];
 
-        fd_out = 1;
+        fd_out = STDOUT_FILENO;
 
         //close(0);
-        dup2(fd, 0);
+        dup2(fd, STDIN_FILENO);
         //close(fd);
 
         //dup2(stdout, 1);
@@ -240,29 +237,24 @@ void initBotServer(int fd, int server_fds[], int c[]) /*define the parameters*/
 
         // set up input_str for read end of pipe
         int length = snprintf(NULL, 0, "%d", fd_in);
-        char* input_str = malloc(length + 1);
+        char* input_str = (char*)malloc(length + 1);
         snprintf(input_str, length + 1, "%d", fd_in);
 
         // set up output_str for write end of pipe
         length = snprintf(NULL, 0, "%d", fd_out);
-        char* output_str = malloc(length + 1);
+        char* output_str = (char*)malloc(length + 1);
         snprintf(output_str, length + 1, "%d", fd_out);
 
-        //const char* args[] = {server_exec_path, input_str, output_str, NULL};
 
-        if (DEBUG) fprintf(stderr, "INITBOTSERVER: fds: %s %s\n", input_str, output_str);
-
-        //execvp("build/server", args);
-        int err = execlp(server_exec_path, server_exec_path, input_str, output_str, NULL);
-        if (err == -1) fprintf(stderr, "asdfdsf\n");
+        execlp(server_exec_path, server_exec_path, input_str, output_str, NULL);
 
 
-        free(input_str);
-        free(output_str);
+        //free(input_str);
+        //free(output_str);
 
         //kill(pid, SIGTERM);
 
-        exit(0);
+        //exit(0);
     }
 
 }
@@ -283,15 +275,11 @@ Description: This function spawns a server process for
 
 Assignment: Complete this function.
 ---------------------------------------------------------------*/
-int initUserServer(int server_fds[], int b[]) /*define the parameters*/
-{
-    if (DEBUG) fprintf(stderr, "USER.C:INITUSERSERVER()\n");
-    /* Complete the function */
-    
+int initUserServer(int server_fds[], int b[])
+{  
     int fd[2];
     if (pipe(fd) == -1)
     {
-        fprintf(stderr, "Pipe failed\n");
         perror("Pipe failed");
         exit(-1);
     }
@@ -305,10 +293,10 @@ int initUserServer(int server_fds[], int b[]) /*define the parameters*/
         //int fd_out = server_fds[1];
 
         //fd_out = 1;
-        fd[1] = 1;
+        close(fd[1]);
+        fd[1] = STDOUT_FILENO;
 
-        //close(0);
-        dup2(fd[0], 0);
+        dup2(fd[0], STDIN_FILENO);
         //close(fd[0]);
         //close(fd[1]);
 
@@ -318,31 +306,25 @@ int initUserServer(int server_fds[], int b[]) /*define the parameters*/
 
         // set up input_str for read end of pipe
         int length = snprintf(NULL, 0, "%d", fd[0]);
-        char* input_str = malloc(length + 1);
+        char* input_str = (char*)malloc(length + 1);
         snprintf(input_str, length + 1, "%d", fd[0]);
 
         // set up output_str for write end of pipe
         length = snprintf(NULL, 0, "%d", fd[1]);
-        char* output_str = malloc(length + 1);
+        char* output_str = (char*)malloc(length + 1);
         snprintf(output_str, length + 1, "%d", fd[1]);
 
-        //const char* args[] = {server_exec_path, input_str, output_str, NULL};
+        execlp(server_exec_path, server_exec_path, input_str, output_str, NULL);
 
-        //fprintf(stderr, "INITUSERSERVER: fds: %s %s\n", input_str, output_str);
-
-        //execvp("build/server", args);
-        int err = execlp(server_exec_path, server_exec_path, input_str, output_str, NULL);
-        if (err == -1) fprintf(stderr, "asdfdsf\n");
-
-        free(input_str);
-        free(output_str);
+        //free(input_str);
+        //free(output_str);
 
         //kill(pid, SIGTERM);
 
-        exit(0);
+        //exit(0);
     }
 
-    //close(fd[0]);
+    close(fd[0]);
     //close(fd[1]);
 
     return fd[1];
@@ -362,24 +344,26 @@ Assignment: Complete this function.  The code for generating
 ---------------------------------------------------------------*/
 void setupUser(int persUserwfd)
 {
-    if (DEBUG) fprintf(stderr, "USER.C:SETUPUSER()\n");
     /* Do the User conversation */
 
     //close(1);
-    dup2(persUserwfd, 1);
+    dup2(persUserwfd, STDOUT_FILENO);
     //close(persUserwfd);
 
     /* now we can start the conversation */
     sleep(2);  /* wait before sending first message to Bot */
     for(int i=0 ; usermessages[i] != NULL ; i++)
     {
-       printf("%s (%d)\n",usermessages[i], getpid());
-       fflush(stdout);
-       sleep(4);  /* adjust sleep so that message is sent after two messages */
+        printf("%s (%d)\n",usermessages[i], getpid());
+        fflush(stdout);
+        sleep(4);  /* adjust sleep so that message is sent after two messages */
     }
     /* conversation done */
-    sleep(5);
+    
+    sleep(2);
 
-    //close(1);
-    //close(persUserwfd);
+    close(STDOUT_FILENO);
+    close(persUserwfd);
+
+    dup2(stdout_copy, STDOUT_FILENO);
 }

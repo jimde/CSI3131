@@ -12,5 +12,14 @@ server: server.c
 clean:
 	rm -f $(BUILD_DIR)/*
 
-gdb:
+gdb: all
 	gdb -x debug.gdb $(BUILD_DIR)/user
+
+run: clean all
+	build/user
+
+valgrind: all
+	valgrind --trace-children=yes --track-fds=yes build/user
+
+watch:
+	watch -n 1 --color "ps -ef | egrep --color 'build|\[server\]'"
