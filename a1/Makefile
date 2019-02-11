@@ -4,22 +4,22 @@ CC = gcc -Wall -g
 all: user server
 
 user: user.c
-	$(CC) -o $(BUILD_DIR)/user user.c
+	$(CC) -o user user.c
 
 server: server.c
-	$(CC) server.c -o $(BUILD_DIR)/server -lpthread
+	$(CC) server.c -o server -lpthread
 
 clean:
-	rm -f $(BUILD_DIR)/*
+	rm -f server user
 
 gdb: all
-	gdb -x debug.gdb $(BUILD_DIR)/user
+	gdb -x debug.gdb user
 
 run: clean all
-	build/user
+	./user
 
 valgrind: all
-	valgrind --trace-children=yes --track-fds=yes build/user
+	valgrind --trace-children=yes --track-fds=yes user
 
 watch:
-	watch -n 1 --color "ps -ef | egrep --color 'build|\[server\]'"
+	watch -n 1 --color "ps -ef | egrep --color '\./server|\./user'"

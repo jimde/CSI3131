@@ -48,9 +48,9 @@ char *botmessages[] = /* Bot messages */
    NULL
 };
 
-// server executables
-char *server_exec_path = "build/server";
-char *user_exec_path = "build/user";
+// user and server executables
+char *server_exec_path = "./server";
+char *user_exec_path = "./user";
 
 // stdin and stdout fd copies
 int stdin_copy;
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
     printf("Simulation starting\n");
 
     /* setup Bot and its pipe */
-    perBotrqueue = setupBot(); 
+    perBotrqueue = setupBot();
 
     // set up server pipes
     int server_fds1[2], server_fds2[2];
@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
 
     /* Lets do User now */
     setupUser(perUserwqueue);
-    
+
     sleep(3);
 
     printf("Simulation complete\n");
@@ -176,7 +176,8 @@ int setupBot(void)
 
         printf("Select one option \n");
 
-        for (int i = 0 ; botmessages[i] != NULL; i++)
+        int i;
+        for (i = 0 ; botmessages[i] != NULL; i++)
         {
             printf("%s (%d)\n", botmessages[i], getpid());
             if (botmessages[i+1] != NULL)
@@ -189,7 +190,7 @@ int setupBot(void)
         }
         sleep(3);
 
-        close(STDOUT_FILENO);     
+        close(STDOUT_FILENO);
 
         exit(0);
     }
@@ -253,7 +254,7 @@ Description: This function spawns a server process for
 Assignment: Complete this function.
 ---------------------------------------------------------------*/
 int initUserServer(int server_fds1[], int server_fds2[])
-{  
+{
     int fd[2];
     if (pipe(fd) == -1)
     {
@@ -267,7 +268,7 @@ int initUserServer(int server_fds1[], int server_fds2[])
         dup2(server_fds2[0], STDIN_FILENO); // read from fd connected to bot server
         close(server_fds2[0]);
         dup2(stdout_copy, STDOUT_FILENO); // write to stdout
-        
+
         close(fd[1]);
 
         sleep(2);
@@ -309,14 +310,16 @@ void setupUser(int persUserwfd)
 
     /* now we can start the conversation */
     sleep(2);  /* wait before sending first message to Bot */
-    for(int i=0 ; usermessages[i] != NULL ; i++)
+
+    int i;
+    for(i = 0 ; usermessages[i] != NULL ; i++)
     {
         printf("%s (%d)\n",usermessages[i], getpid());
         fflush(stdout);
         sleep(4);  /* adjust sleep so that message is sent after two messages */
     }
     /* conversation done */
-    
+
     sleep(3);
 
     close(STDOUT_FILENO);
