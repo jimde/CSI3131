@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
     if(argc != 3)
     {
-        printf("Usage: Server <infd> <outfd>\n");
+        printf("Usage: server <infd> <outfd>\n");
         returnVal = 1;
     }
     else if(sscanf(argv[1],"%d",&fds[0]) != 1)
@@ -96,20 +96,27 @@ int generateThreads(int fds[])
 {
     int returnVal = OK;  /* return code */
 
-    pthread_t pt;
+    int server_fds[2] = {STDIN_FILENO, STDOUT_FILENO};
+
+    pthread_t pt_user_bot, pt_server;
 
     sleep(1);
-    pthread_create(&pt, NULL, talk, fds);
+
+    pthread_create(&pt_user_bot, NULL, talk, server_fds);
+    pthread_create(&pt_server, NULL, talk, fds);
 
     /* lets print a welcome message */
     printf("Server Connected (%d)\n", getpid());
 
+    // wait for threads to finish
+    pthread_join(pt_server, NULL);
+    pthread_join(pt_user_bot, NULL);
 
-
-    pthread_join(pt, NULL);
-
-    //close(fds[0]);
-    //close(fds[1]);
+    // fd cleanup
+    close(fds[0]);
+    close(fds[1]);
+    close(server_fds[0]);
+    close(server_fds[1]);
 
     return(returnVal);
 }
@@ -131,7 +138,6 @@ void *talk(void *fdPtr)
     int num;                   /* for storing number of characters read */
     char buffer[BUFSIZ];       /* buffer for reading characters and
                                  building other output messages */
-
     while(1)  /* setup up loop */
     {
         num = read(fds[0],buffer,BUFSIZ);

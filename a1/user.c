@@ -20,7 +20,6 @@ Description: This program is designed to test the severs
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/fcntl.h>
-
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
@@ -49,11 +48,17 @@ char *botmessages[] = /* Bot messages */
    NULL
 };
 
-char* server_exec_path = "build/server";
-char* user_exec_path = "build/user";
+// server executables
+char *server_exec_path = "build/server";
+char *user_exec_path = "build/user";
 
+// stdin and stdout fd copies
 int stdin_copy;
 int stdout_copy;
+
+// server pids
+pid_t user_server;
+pid_t bot_server;
 
 /* function prototypes */
 int setupBot(void);
@@ -66,7 +71,7 @@ void setupUser(int);
 Function: main
 
 Description:  The main function calls the following four functions:
-                 setupBot: spawns a child to act as Bot.
+         setupBot: spawns a child to act as Bot.
 		 initBotServer: spawns server process for
 		                  servicing Bot
 		 initUserServer: spawns server process for
@@ -82,61 +87,57 @@ int main(int argc, char *argv[])
     int perBotrqueue;  /* read end of pipe */
     int perUserwqueue;  /* write end of pipe */
 
+    // create backups of stdin and stdout
     stdin_copy = dup(STDIN_FILENO);
     stdout_copy = dup(STDOUT_FILENO);
 
     printf("Simulation starting\n");
 
-    perBotrqueue = setupBot(); /* setup Bot and its pipe */
+    /* setup Bot and its pipe */
+    perBotrqueue = setupBot(); 
 
-    //test(perBotrqueue, 1);
-    //return 0;
-
-    //return 0;
-
-    /* Create server for Bot*/
-    /* note that stdin connected to Bot pipe */
-
-    int server_fds[2];
-    
-    if (pipe(server_fds) == -1)
+    // set up server pipes
+    int server_fds1[2], server_fds2[2];
+    if (pipe(server_fds1) == -1 || pipe(server_fds2) == -1)
     {
-        fprintf(stderr, "Pipe failed\n");
         perror("Pipe failed");
         exit(-1);
     }
 
-    //close(server_fds[0]);
-    //close(server_fds[1]);
-    
+    /* Create server for Bot*/
+    /* note that stdin connected to Bot pipe */
+    initBotServer(perBotrqueue, server_fds1, server_fds2);
 
-    initBotServer(perBotrqueue, server_fds, 0); /*define the arguments*/
     /* Create Server for User*/
     /* note that stdin connected to persBot pipe */
-
-    //sleep(50); return 0;
-
-    perUserwqueue = initUserServer(server_fds, 0); /*define the arguments*/
+    perUserwqueue = initUserServer(server_fds1, server_fds2);
 
     sleep(2);
-
-    //return 0;
 
     /* Lets do User now */
     setupUser(perUserwqueue);
     
-    sleep(5);
+    sleep(3);
 
     printf("Simulation complete\n");
 
-    
-    close(stdin_copy);
-    close(stdout_copy);
+    // fd cleanup
     close(perBotrqueue);
     close(perUserwqueue);
-    close(server_fds[0]);
-    close(server_fds[1]);
+    close(server_fds1[0]);
+    close(server_fds1[1]);
+    close(server_fds2[0]);
+    close(server_fds2[1]);
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    dup2(stdin_copy, STDIN_FILENO);
+    dup2(stdout_copy, STDOUT_FILENO);
+    close(stdin_copy);
+    close(stdout_copy);
 
+    // prevent zombie process
+    kill(user_server, SIGTERM);
+    kill(bot_server, SIGTERM);
 
     return 0;
 }
@@ -155,45 +156,40 @@ Description: This function spawns a child process to act as
 Assignment: Complete this function.  The code for generating
             messages has been provided.
 ---------------------------------------------------------------*/
-int setupBot(void) // generates output -> pipe
+int setupBot(void)
 {
     int fd[2];
 
     if (pipe(fd) == -1)
     {
-        fprintf(stderr, "Pipe failed\n");
         perror("Pipe failed");
         exit(-1);
     }
 
-
-
-
-    if (fork() == 0) // child
+    if (fork() == 0)
     {
-        //close(1);
         dup2(fd[1], STDOUT_FILENO);
         close(fd[0]);
-        
+        close(fd[1]);
 
         sleep(6);  /* wait for first message from User*/
+
         printf("Select one option \n");
 
-        for(int i=0 ; botmessages[i] != NULL ; i++)
+        for (int i = 0 ; botmessages[i] != NULL; i++)
         {
-            printf("%s (%d)\n",botmessages[i], getpid());
+            printf("%s (%d)\n", botmessages[i], getpid());
             if (botmessages[i+1] != NULL)
             {
-                printf("%s (%d)\n",botmessages[i+1], getpid());
+                printf("%s (%d)\n", botmessages[i+1], getpid());
                 i++;
             }
             fflush(stdout);
             sleep(4);  /* wait for response */
         }
-        sleep(2);
+        sleep(3);
 
-        //close(1);
-        close(fd[1]);
+        close(STDOUT_FILENO);     
 
         exit(0);
     }
@@ -215,48 +211,29 @@ Description: This function spawns a server process for
 
 Assignment: Complete this function.
 ---------------------------------------------------------------*/
-void initBotServer(int fd, int server_fds[], int c[]) /*define the parameters*/
+void initBotServer(int bot_fd, int server_fds1[], int server_fds2[])
 {
-    pid_t pid = fork();
-
-    if (pid == 0)
+    bot_server = fork();
+    if (bot_server == 0)
     {
-        int fd_in = fd;
-        int fd_out = server_fds[1];
-
-        fd_out = STDOUT_FILENO;
-
-        //close(0);
-        dup2(fd, STDIN_FILENO);
-        //close(fd);
-
-        //dup2(stdout, 1);
-        //dup2(stdout_copy, 1);
+        dup2(server_fds1[0], STDIN_FILENO); // read from user server
+        close(server_fds1[0]);
+        dup2(stdout_copy, STDOUT_FILENO); // write to stdout
 
         sleep(2);
 
         // set up input_str for read end of pipe
-        int length = snprintf(NULL, 0, "%d", fd_in);
-        char* input_str = (char*)malloc(length + 1);
-        snprintf(input_str, length + 1, "%d", fd_in);
+        int length = snprintf(NULL, 0, "%d", bot_fd); // read from fd connected to bot
+        char *input_str = (char *)malloc(length + 1);
+        snprintf(input_str, length + 1, "%d", bot_fd);
 
         // set up output_str for write end of pipe
-        length = snprintf(NULL, 0, "%d", fd_out);
-        char* output_str = (char*)malloc(length + 1);
-        snprintf(output_str, length + 1, "%d", fd_out);
-
+        length = snprintf(NULL, 0, "%d", server_fds2[1]); // write to fd connected to user server
+        char *output_str = (char *)malloc(length + 1);
+        snprintf(output_str, length + 1, "%d", server_fds2[1]);
 
         execlp(server_exec_path, server_exec_path, input_str, output_str, NULL);
-
-
-        //free(input_str);
-        //free(output_str);
-
-        //kill(pid, SIGTERM);
-
-        //exit(0);
     }
-
 }
 
 
@@ -275,7 +252,7 @@ Description: This function spawns a server process for
 
 Assignment: Complete this function.
 ---------------------------------------------------------------*/
-int initUserServer(int server_fds[], int b[])
+int initUserServer(int server_fds1[], int server_fds2[])
 {  
     int fd[2];
     if (pipe(fd) == -1)
@@ -284,48 +261,31 @@ int initUserServer(int server_fds[], int b[])
         exit(-1);
     }
 
-    //fd[1] = 2;
-
-    pid_t pid = fork();
-    if (pid == 0)
+    user_server = fork();
+    if (user_server == 0)
     {
-        //int fd_in = server_fds[0];
-        //int fd_out = server_fds[1];
-
-        //fd_out = 1;
+        dup2(server_fds2[0], STDIN_FILENO); // read from fd connected to bot server
+        close(server_fds2[0]);
+        dup2(stdout_copy, STDOUT_FILENO); // write to stdout
+        
         close(fd[1]);
-        fd[1] = STDOUT_FILENO;
-
-        dup2(fd[0], STDIN_FILENO);
-        //close(fd[0]);
-        //close(fd[1]);
-
-        //dup2(stdout_copy, 1);
 
         sleep(2);
 
         // set up input_str for read end of pipe
-        int length = snprintf(NULL, 0, "%d", fd[0]);
-        char* input_str = (char*)malloc(length + 1);
+        int length = snprintf(NULL, 0, "%d", fd[0]); // read from fd connected to user
+        char *input_str = (char *)malloc(length + 1);
         snprintf(input_str, length + 1, "%d", fd[0]);
 
         // set up output_str for write end of pipe
-        length = snprintf(NULL, 0, "%d", fd[1]);
-        char* output_str = (char*)malloc(length + 1);
-        snprintf(output_str, length + 1, "%d", fd[1]);
+        length = snprintf(NULL, 0, "%d", server_fds1[1]); // write to fd connected to bot server
+        char *output_str = (char *)malloc(length + 1);
+        snprintf(output_str, length + 1, "%d", server_fds1[1]);
 
         execlp(server_exec_path, server_exec_path, input_str, output_str, NULL);
-
-        //free(input_str);
-        //free(output_str);
-
-        //kill(pid, SIGTERM);
-
-        //exit(0);
     }
 
     close(fd[0]);
-    //close(fd[1]);
 
     return fd[1];
 }
@@ -344,11 +304,8 @@ Assignment: Complete this function.  The code for generating
 ---------------------------------------------------------------*/
 void setupUser(int persUserwfd)
 {
-    /* Do the User conversation */
-
-    //close(1);
     dup2(persUserwfd, STDOUT_FILENO);
-    //close(persUserwfd);
+    close(persUserwfd);
 
     /* now we can start the conversation */
     sleep(2);  /* wait before sending first message to Bot */
@@ -360,10 +317,8 @@ void setupUser(int persUserwfd)
     }
     /* conversation done */
     
-    sleep(2);
+    sleep(3);
 
     close(STDOUT_FILENO);
-    close(persUserwfd);
-
     dup2(stdout_copy, STDOUT_FILENO);
 }
