@@ -1,0 +1,568 @@
+ship 0 arriving on dock 0
+ship 1 arriving on dock 1
+ship 0 boarding to Hawaii now! With 2 seats
+ship 1 boarding to Mauritius now! With 2 seats
+Passenger 5 wants to go to Mauritius
+Passenger 5 has boarded ship 1, destination: Mauritius
+Passenger 7 wants to go to Mauritius
+Passenger 7 has boarded ship 1, destination: Mauritius
+ship 1 Departs towards Mauritius!
+Passenger 5 enjoying the ride to Mauritius: Yeahhh!
+Passenger 7 enjoying the ride to Mauritius: Yeahhh!
+ship 2 arriving on dock 1
+ship 2 boarding to Mauritius now! With 2 seats
+Passenger 8 wants to go to Mauritius
+Passenger 8 has boarded ship 2, destination: Mauritius
+Passenger 4 wants to go to Hawaii
+Passenger 4 has boarded ship 0, destination: Hawaii
+Passenger 0 wants to go to Mauritius
+Passenger 0 has boarded ship 2, destination: Mauritius
+ship 2 Departs towards Mauritius!
+Passenger 8 enjoying the ride to Mauritius: Yeahhh!
+ship 3 arriving on dock 1
+Passenger 0 enjoying the ride to Mauritius: Yeahhh!
+ship 3 boarding to Mauritius now! With 2 seats
+Passenger 9 wants to go to Mauritius
+Passenger 9 has boarded ship 3, destination: Mauritius
+Passenger 3 wants to go to Mauritius
+Passenger 3 has boarded ship 3, destination: Mauritius
+ship 3 Departs towards Mauritius!
+Passenger 3 enjoying the ride to Mauritius: Yeahhh!
+Passenger 9 enjoying the ride to Mauritius: Yeahhh!
+Passenger 1 wants to go to Mauritius
+Passenger 2 wants to go to Mauritius
+Passenger 6 wants to go to Hawaii
+Passenger 6 has boarded ship 0, destination: Hawaii
+ship 0 Departs towards Hawaii!
+Passenger 4 enjoying the ride to Hawaii: Yeahhh!
+Passenger 6 enjoying the ride to Hawaii: Yeahhh!
+ship 2 arriving on dock 0
+Passenger 0 leaving the ship 2 which has 0 seats
+Passenger 8 leaving the ship 2 which has 0 seats
+ship 2 boarding to Hawaii now! With 2 seats
+Passenger 7 leaving the ship 1 which has 0 seats
+Passenger 5 leaving the ship 1 which has 0 seats
+ship 1 arriving on dock 1
+ship 1 boarding to Mauritius now! With 2 seats
+Passenger 1 has boarded ship 1, destination: Mauritius
+Passenger 2 has boarded ship 1, destination: Mauritius
+ship 1 Departs towards Mauritius!
+Passenger 1 enjoying the ride to Mauritius: Yeahhh!
+Passenger 2 enjoying the ride to Mauritius: Yeahhh!
+Passenger 7 wants to go to Mauritius
+ship 0 arriving on dock 1
+Passenger 6 leaving the ship 0 which has 0 seats
+Passenger 4 leaving the ship 0 which has 0 seats
+ship 0 boarding to Mauritius now! With 2 seats
+Passenger 7 has boarded ship 0, destination: Mauritius
+Passenger 0 wants to go to Mauritius
+Passenger 0 has boarded ship 0, destination: Mauritius
+ship 0 Departs towards Mauritius!
+Passenger 0 enjoying the ride to Mauritius: Yeahhh!
+Passenger 7 enjoying the ride to Mauritius: Yeahhh!
+Passenger 5 wants to go to Mauritius
+Passenger 8 wants to go to Hawaii
+Passenger 8 has boarded ship 2, destination: Hawaii
+Passenger 6 wants to go to Hawaii
+ship 2 Departs towards Hawaii!
+Passenger 6 has boarded ship 2, destination: Hawaii
+Passenger 6 enjoying the ride to Hawaii: Yeahhh!
+Passenger 8 enjoying the ride to Hawaii: Yeahhh!
+ship 3 arriving on dock 0
+Passenger 3 leaving the ship 3 which has 0 seats
+Passenger 9 leaving the ship 3 which has 1 seats
+ship 3 boarding to Hawaii now! With 2 seats
+Passenger 4 wants to go to Hawaii
+Passenger 4 has boarded ship 3, destination: Hawaii
+Passenger 9 wants to go to Hawaii
+Passenger 9 has boarded ship 3, destination: Hawaii
+ship 3 Departs towards Hawaii!
+Passenger 4 enjoying the ride to Hawaii: Yeahhh!
+Passenger 9 enjoying the ride to Hawaii: Yeahhh!
+ship 0 arriving on dock 0
+Passenger 0 leaving the ship 0 which has 0 seats
+Passenger 7 leaving the ship 0 which has 0 seats
+ship 0 boarding to Hawaii now! With 2 seats
+Passenger 3 wants to go to Mauritius
+Passenger 7 wants to go to Mauritius
+Passenger 0 wants to go to Mauritius
+ship 1 arriving on dock 1
+Passenger 1 leaving the ship 1 which has 0 seats
+Passenger 2 leaving the ship 1 which has 0 seats
+ship 1 boarding to Mauritius now! With 2 seats
+Passenger 5 has boarded ship 1, destination: Mauritius
+Passenger 3 has boarded ship 1, destination: Mauritius
+ship 1 Departs towards Mauritius!
+Passenger 5 enjoying the ride to Mauritius: Yeahhh!
+Passenger 3 enjoying the ride to Mauritius: Yeahhh!
+ship 2 arriving on dock 1
+Passenger 8 leaving the ship 2 which has 0 seats
+Passenger 6 leaving the ship 2 which has 0 seats
+ship 2 boarding to Mauritius now! With 2 seats
+Passenger 7 has boarded ship 2, destination: Mauritius
+Passenger 0 has boarded ship 2, destination: Mauritius
+ship 2 Departs towards Mauritius!
+Passenger 7 enjoying the ride to Mauritius: Yeahhh!
+Passenger 0 enjoying the ride to Mauritius: Yeahhh!
+Passenger 1 wants to go to Hawaii
+Passenger 1 has boarded ship 0, destination: Hawaii
+Passenger 2 wants to go to Mauritius
+ship 3 arriving on dock 1
+Passenger 4 leaving the ship 3 which has 0 seats
+Passenger 9 leaving the ship 3 which has 0 seats
+ship 3 boarding to Mauritius now! With 2 seats
+Passenger 2 has boarded ship 3, destination: Mauritius
+Passenger 4 wants to go to Hawaii
+Passenger 4 has boarded ship 0, destination: Hawaii
+ship 0 Departs towards Hawaii!
+Passenger 1 enjoying the ride to Hawaii: Yeahhh!
+Passenger 4 enjoying the ride to Hawaii: Yeahhh!
+Passenger 8 wants to go to Mauritius
+Passenger 8 has boarded ship 3, destination: Mauritius
+ship 3 Departs towards Mauritius!
+Passenger 2 enjoying the ride to Mauritius: Yeahhh!
+Passenger 8 enjoying the ride to Mauritius: Yeahhh!
+Passenger 6 wants to go to Hawaii
+Passenger 9 wants to go to Hawaii
+ship 2 arriving on dock 0
+Passenger 0 leaving the ship 2 which has 0 seats
+Passenger 7 leaving the ship 2 which has 0 seats
+ship 2 boarding to Hawaii now! With 2 seats
+Passenger 6 has boarded ship 2, destination: Hawaii
+ship 2 Departs towards Hawaii!
+Passenger 9 has boarded ship 2, destination: Hawaii
+Passenger 9 enjoying the ride to Hawaii: Yeahhh!
+Passenger 6 enjoying the ride to Hawaii: Yeahhh!
+Passenger 5 leaving the ship 1 which has 0 seats
+Passenger 3 leaving the ship 1 which has 0 seats
+ship 1 arriving on dock 0
+ship 1 boarding to Hawaii now! With 2 seats
+Passenger 0 wants to go to Mauritius
+Passenger 3 wants to go to Hawaii
+Passenger 3 has boarded ship 1, destination: Hawaii
+Passenger 5 wants to go to Hawaii
+Passenger 5 has boarded ship 1, destination: Hawaii
+ship 1 Departs towards Hawaii!
+Passenger 3 enjoying the ride to Hawaii: Yeahhh!
+Passenger 5 enjoying the ride to Hawaii: Yeahhh!
+ship 3 arriving on dock 0
+Passenger 8 leaving the ship 3 which has 0 seats
+Passenger 2 leaving the ship 3 which has 0 seats
+ship 3 boarding to Hawaii now! With 2 seats
+Passenger 8 wants to go to Hawaii
+Passenger 8 has boarded ship 3, destination: Hawaii
+ship 0 arriving on dock 1
+Passenger 4 leaving the ship 0 which has 0 seats
+Passenger 1 leaving the ship 0 which has 0 seats
+ship 0 boarding to Mauritius now! With 2 seats
+Passenger 0 has boarded ship 0, destination: Mauritius
+Passenger 7 wants to go to Hawaii
+Passenger 7 has boarded ship 3, destination: Hawaii
+ship 3 Departs towards Hawaii!
+Passenger 8 enjoying the ride to Hawaii: Yeahhh!
+Passenger 7 enjoying the ride to Hawaii: Yeahhh!
+Passenger 1 wants to go to Mauritius
+Passenger 1 has boarded ship 0, destination: Mauritius
+ship 0 Departs towards Mauritius!
+Passenger 0 enjoying the ride to Mauritius: Yeahhh!
+Passenger 1 enjoying the ride to Mauritius: Yeahhh!
+Passenger 2 wants to go to Hawaii
+Passenger 4 wants to go to Mauritius
+ship 2 arriving on dock 0
+Passenger 6 leaving the ship 2 which has 0 seats
+Passenger 9 leaving the ship 2 which has 0 seats
+ship 2 boarding to Hawaii now! With 2 seats
+Passenger 2 has boarded ship 2, destination: Hawaii
+ship 1 arriving on dock 1
+Passenger 5 leaving the ship 1 which has 0 seats
+Passenger 3 leaving the ship 1 which has 0 seats
+ship 1 boarding to Mauritius now! With 2 seats
+Passenger 4 has boarded ship 1, destination: Mauritius
+Passenger 6 wants to go to Hawaii
+Passenger 6 has boarded ship 2, destination: Hawaii
+ship 2 Departs towards Hawaii!
+Passenger 2 enjoying the ride to Hawaii: Yeahhh!
+Passenger 6 enjoying the ride to Hawaii: Yeahhh!
+ship 3 arriving on dock 0
+Passenger 7 leaving the ship 3 which has 0 seats
+Passenger 8 leaving the ship 3 which has 0 seats
+ship 3 boarding to Hawaii now! With 2 seats
+Passenger 3 wants to go to Hawaii
+Passenger 3 has boarded ship 3, destination: Hawaii
+Passenger 7 wants to go to Hawaii
+Passenger 7 has boarded ship 3, destination: Hawaii
+ship 3 Departs towards Hawaii!
+Passenger 3 enjoying the ride to Hawaii: Yeahhh!
+Passenger 7 enjoying the ride to Hawaii: Yeahhh!
+Passenger 9 wants to go to Hawaii
+Passenger 5 wants to go to Hawaii
+Passenger 8 wants to go to Mauritius
+Passenger 8 has boarded ship 1, destination: Mauritius
+ship 1 Departs towards Mauritius!
+Passenger 4 enjoying the ride to Mauritius: Yeahhh!
+Passenger 8 enjoying the ride to Mauritius: Yeahhh!
+ship 0 arriving on dock 0
+Passenger 0 leaving the ship 0 which has 0 seats
+Passenger 1 leaving the ship 0 which has 0 seats
+ship 0 boarding to Hawaii now! With 2 seats
+Passenger 9 has boarded ship 0, destination: Hawaii
+Passenger 5 has boarded ship 0, destination: Hawaii
+ship 0 Departs towards Hawaii!
+Passenger 9 enjoying the ride to Hawaii: Yeahhh!
+Passenger 5 enjoying the ride to Hawaii: Yeahhh!
+Passenger 1 wants to go to Mauritius
+Passenger 0 wants to go to Mauritius
+ship 0 arriving on dock 0
+Passenger 5 leaving the ship 0 which has 0 seats
+Passenger 9 leaving the ship 0 which has 0 seats
+ship 0 boarding to Hawaii now! With 2 seats
+ship 2 arriving on dock 1
+Passenger 2 leaving the ship 2 which has 0 seats
+Passenger 6 leaving the ship 2 which has 0 seats
+ship 2 boarding to Mauritius now! With 2 seats
+Passenger 1 has boarded ship 2, destination: Mauritius
+ship 2 Departs towards Mauritius!
+Passenger 0 has boarded ship 2, destination: Mauritius
+Passenger 0 enjoying the ride to Mauritius: Yeahhh!
+Passenger 1 enjoying the ride to Mauritius: Yeahhh!
+Passenger 9 wants to go to Mauritius
+Passenger 6 wants to go to Mauritius
+Passenger 5 wants to go to Hawaii
+Passenger 5 has boarded ship 0, destination: Hawaii
+ship 1 arriving on dock 1
+Passenger 8 leaving the ship 1 which has 0 seats
+Passenger 4 leaving the ship 1 which has 0 seats
+ship 1 boarding to Mauritius now! With 2 seats
+Passenger 9 has boarded ship 1, destination: Mauritius
+Passenger 6 has boarded ship 1, destination: Mauritius
+ship 1 Departs towards Mauritius!
+Passenger 9 enjoying the ride to Mauritius: Yeahhh!
+Passenger 6 enjoying the ride to Mauritius: Yeahhh!
+Passenger 4 wants to go to Hawaii
+Passenger 4 has boarded ship 0, destination: Hawaii
+ship 0 Departs towards Hawaii!
+Passenger 5 enjoying the ride to Hawaii: Yeahhh!
+Passenger 4 enjoying the ride to Hawaii: Yeahhh!
+ship 3 arriving on dock 0
+Passenger 7 leaving the ship 3 which has 0 seats
+Passenger 3 leaving the ship 3 which has 0 seats
+ship 3 boarding to Hawaii now! With 2 seats
+Passenger 2 wants to go to Hawaii
+Passenger 2 has boarded ship 3, destination: Hawaii
+Passenger 8 wants to go to Hawaii
+Passenger 8 has boarded ship 3, destination: Hawaii
+ship 3 Departs towards Hawaii!
+Passenger 2 enjoying the ride to Hawaii: Yeahhh!
+Passenger 8 enjoying the ride to Hawaii: Yeahhh!
+ship 2 arriving on dock 0
+Passenger 1 leaving the ship 2 which has 0 seats
+Passenger 0 leaving the ship 2 which has 0 seats
+ship 2 boarding to Hawaii now! With 2 seats
+Passenger 7 wants to go to Mauritius
+Passenger 3 wants to go to Hawaii
+Passenger 3 has boarded ship 2, destination: Hawaii
+Passenger 0 wants to go to Hawaii
+Passenger 0 has boarded ship 2, destination: Hawaii
+ship 2 Departs towards Hawaii!
+Passenger 3 enjoying the ride to Hawaii: Yeahhh!
+Passenger 0 enjoying the ride to Hawaii: Yeahhh!
+ship 1 arriving on dock 0
+Passenger 6 leaving the ship 1 which has 0 seats
+Passenger 9 leaving the ship 1 which has 0 seats
+ship 1 boarding to Hawaii now! With 2 seats
+Passenger 1 wants to go to Hawaii
+Passenger 1 has boarded ship 1, destination: Hawaii
+Passenger 9 wants to go to Mauritius
+Passenger 6 wants to go to Mauritius
+ship 0 arriving on dock 1
+Passenger 5 leaving the ship 0 which has 0 seats
+Passenger 4 leaving the ship 0 which has 0 seats
+ship 0 boarding to Mauritius now! With 2 seats
+Passenger 7 has boarded ship 0, destination: Mauritius
+ship 0 Departs towards Mauritius!
+Passenger 9 has boarded ship 0, destination: Mauritius
+Passenger 7 enjoying the ride to Mauritius: Yeahhh!
+Passenger 9 enjoying the ride to Mauritius: Yeahhh!
+Passenger 2 leaving the ship 3 which has 0 seats
+Passenger 8 leaving the ship 3 which has 0 seats
+ship 3 arriving on dock 1
+ship 3 boarding to Mauritius now! With 2 seats
+Passenger 6 has boarded ship 3, destination: Mauritius
+Passenger 2 wants to go to Mauritius
+Passenger 2 has boarded ship 3, destination: Mauritius
+ship 3 Departs towards Mauritius!
+Passenger 6 enjoying the ride to Mauritius: Yeahhh!
+Passenger 2 enjoying the ride to Mauritius: Yeahhh!
+Passenger 4 wants to go to Hawaii
+Passenger 4 has boarded ship 1, destination: Hawaii
+ship 1 Departs towards Hawaii!
+Passenger 1 enjoying the ride to Hawaii: Yeahhh!
+Passenger 4 enjoying the ride to Hawaii: Yeahhh!
+Passenger 5 wants to go to Hawaii
+ship 0 arriving on dock 0
+Passenger 7 leaving the ship 0 which has 0 seats
+Passenger 9 leaving the ship 0 which has 0 seats
+ship 0 boarding to Hawaii now! With 2 seats
+Passenger 5 has boarded ship 0, destination: Hawaii
+Passenger 9 wants to go to Mauritius
+ship 2 arriving on dock 1
+Passenger 0 leaving the ship 2 which has 0 seats
+Passenger 3 leaving the ship 2 which has 0 seats
+ship 2 boarding to Mauritius now! With 2 seats
+Passenger 9 has boarded ship 2, destination: Mauritius
+Passenger 8 wants to go to Mauritius
+Passenger 8 has boarded ship 2, destination: Mauritius
+ship 2 Departs towards Mauritius!
+Passenger 8 enjoying the ride to Mauritius: Yeahhh!
+Passenger 9 enjoying the ride to Mauritius: Yeahhh!
+Passenger 7 wants to go to Hawaii
+Passenger 7 has boarded ship 0, destination: Hawaii
+ship 0 Departs towards Hawaii!
+Passenger 5 enjoying the ride to Hawaii: Yeahhh!
+Passenger 7 enjoying the ride to Hawaii: Yeahhh!
+Passenger 0 wants to go to Mauritius
+Passenger 3 wants to go to Hawaii
+ship 1 arriving on dock 0
+Passenger 1 leaving the ship 1 which has 0 seats
+Passenger 4 leaving the ship 1 which has 0 seats
+ship 1 boarding to Hawaii now! With 2 seats
+Passenger 3 has boarded ship 1, destination: Hawaii
+Passenger 4 wants to go to Hawaii
+Passenger 4 has boarded ship 1, destination: Hawaii
+ship 1 Departs towards Hawaii!
+Passenger 4 enjoying the ride to Hawaii: Yeahhh!
+Passenger 3 enjoying the ride to Hawaii: Yeahhh!
+Passenger 6 leaving the ship 3 which has 0 seats
+ship 3 arriving on dock 0
+Passenger 2 leaving the ship 3 which has 0 seats
+ship 3 boarding to Hawaii now! With 2 seats
+Passenger 2 wants to go to Hawaii
+Passenger 2 has boarded ship 3, destination: Hawaii
+Passenger 1 wants to go to Mauritius
+ship 2 arriving on dock 1
+Passenger 9 leaving the ship 2 which has 0 seats
+Passenger 8 leaving the ship 2 which has 0 seats
+ship 2 boarding to Mauritius now! With 2 seats
+Passenger 0 has boarded ship 2, destination: Mauritius
+Passenger 1 has boarded ship 2, destination: Mauritius
+ship 2 Departs towards Mauritius!
+Passenger 0 enjoying the ride to Mauritius: Yeahhh!
+Passenger 1 enjoying the ride to Mauritius: Yeahhh!
+Passenger 8 wants to go to Mauritius
+Passenger 6 wants to go to Hawaii
+Passenger 6 has boarded ship 3, destination: Hawaii
+ship 3 Departs towards Hawaii!
+Passenger 2 enjoying the ride to Hawaii: Yeahhh!
+Passenger 6 enjoying the ride to Hawaii: Yeahhh!
+ship 0 arriving on dock 0
+Passenger 7 leaving the ship 0 which has 0 seats
+Passenger 5 leaving the ship 0 which has 0 seats
+ship 0 boarding to Hawaii now! With 2 seats
+Passenger 7 wants to go to Hawaii
+Passenger 7 has boarded ship 0, destination: Hawaii
+Passenger 9 wants to go to Hawaii
+Passenger 9 has boarded ship 0, destination: Hawaii
+ship 0 Departs towards Hawaii!
+Passenger 7 enjoying the ride to Hawaii: Yeahhh!
+Passenger 9 enjoying the ride to Hawaii: Yeahhh!
+Passenger 5 wants to go to Hawaii
+ship 1 arriving on dock 0
+Passenger 3 leaving the ship 1 which has 0 seats
+Passenger 4 leaving the ship 1 which has 0 seats
+Passenger 4 wants to go to Mauritius
+ship 1 boarding to Hawaii now! With 2 seats
+Passenger 5 has boarded ship 1, destination: Hawaii
+ship 3 arriving on dock 1
+Passenger 6 leaving the ship 3 which has 0 seats
+Passenger 2 leaving the ship 3 which has 0 seats
+ship 3 boarding to Mauritius now! With 2 seats
+Passenger 8 has boarded ship 3, destination: Mauritius
+Passenger 4 has boarded ship 3, destination: Mauritius
+ship 3 Departs towards Mauritius!
+Passenger 8 enjoying the ride to Mauritius: Yeahhh!
+Passenger 4 enjoying the ride to Mauritius: Yeahhh!
+ship 2 arriving on dock 1
+Passenger 1 leaving the ship 2 which has 0 seats
+Passenger 0 leaving the ship 2 which has 0 seats
+ship 2 boarding to Mauritius now! With 2 seats
+Passenger 0 wants to go to Mauritius
+Passenger 0 has boarded ship 2, destination: Mauritius
+Passenger 6 wants to go to Hawaii
+Passenger 6 has boarded ship 1, destination: Hawaii
+ship 1 Departs towards Hawaii!
+Passenger 5 enjoying the ride to Hawaii: Yeahhh!
+Passenger 6 enjoying the ride to Hawaii: Yeahhh!
+Passenger 2 wants to go to Mauritius
+Passenger 2 has boarded ship 2, destination: Mauritius
+ship 2 Departs towards Mauritius!
+Passenger 0 enjoying the ride to Mauritius: Yeahhh!
+Passenger 2 enjoying the ride to Mauritius: Yeahhh!
+Passenger 3 wants to go to Hawaii
+Passenger 1 wants to go to Hawaii
+ship 2 arriving on dock 0
+Passenger 2 leaving the ship 2 which has 0 seats
+Passenger 0 leaving the ship 2 which has 0 seats
+ship 2 boarding to Hawaii now! With 2 seats
+Passenger 3 has boarded ship 2, destination: Hawaii
+Passenger 1 has boarded ship 2, destination: Hawaii
+ship 2 Departs towards Hawaii!
+Passenger 3 enjoying the ride to Hawaii: Yeahhh!
+Passenger 1 enjoying the ride to Hawaii: Yeahhh!
+ship 0 arriving on dock 0
+Passenger 9 leaving the ship 0 which has 0 seats
+Passenger 7 leaving the ship 0 which has 0 seats
+ship 0 boarding to Hawaii now! With 2 seats
+ship 1 arriving on dock 1
+Passenger 5 leaving the ship 1 which has 0 seats
+Passenger 6 leaving the ship 1 which has 0 seats
+ship 1 boarding to Mauritius now! With 2 seats
+Passenger 0 wants to go to Hawaii
+Passenger 0 has boarded ship 0, destination: Hawaii
+Passenger 2 wants to go to Mauritius
+Passenger 2 has boarded ship 1, destination: Mauritius
+Passenger 5 wants to go to Hawaii
+Passenger 5 has boarded ship 0, destination: Hawaii
+ship 0 Departs towards Hawaii!
+ship 3 arriving on dock 0
+Passenger 8 leaving the ship 3 which has 0 seats
+Passenger 5 enjoying the ride to Hawaii: Yeahhh!
+Passenger 0 enjoying the ride to Hawaii: Yeahhh!
+Passenger 4 leaving the ship 3 which has 1 seats
+ship 3 boarding to Hawaii now! With 2 seats
+Passenger 7 wants to go to Mauritius
+Passenger 7 has boarded ship 1, destination: Mauritius
+ship 1 Departs towards Mauritius!
+Passenger 2 enjoying the ride to Mauritius: Yeahhh!
+Passenger 7 enjoying the ride to Mauritius: Yeahhh!
+Passenger 9 wants to go to Hawaii
+Passenger 9 has boarded ship 3, destination: Hawaii
+Passenger 6 wants to go to Hawaii
+Passenger 6 has boarded ship 3, destination: Hawaii
+ship 3 Departs towards Hawaii!
+Passenger 9 enjoying the ride to Hawaii: Yeahhh!
+Passenger 6 enjoying the ride to Hawaii: Yeahhh!
+Passenger 8 wants to go to Hawaii
+Passenger 4 wants to go to Hawaii
+ship 2 arriving on dock 0
+Passenger 1 leaving the ship 2 which has 0 seats
+Passenger 3 leaving the ship 2 which has 0 seats
+ship 2 boarding to Hawaii now! With 2 seats
+Passenger 8 has boarded ship 2, destination: Hawaii
+Passenger 4 has boarded ship 2, destination: Hawaii
+ship 2 Departs towards Hawaii!
+Passenger 8 enjoying the ride to Hawaii: Yeahhh!
+Passenger 4 enjoying the ride to Hawaii: Yeahhh!
+Passenger 3 wants to go to Hawaii
+ship 0 arriving on dock 0
+Passenger 5 leaving the ship 0 which has 0 seats
+Passenger 0 leaving the ship 0 which has 1 seats
+ship 0 boarding to Hawaii now! With 2 seats
+Passenger 3 has boarded ship 0, destination: Hawaii
+Passenger 1 wants to go to Mauritius
+Passenger 0 wants to go to Mauritius
+ship 1 arriving on dock 1
+Passenger 2 leaving the ship 1 which has 0 seats
+Passenger 7 leaving the ship 1 which has 0 seats
+ship 1 boarding to Mauritius now! With 2 seats
+Passenger 1 has boarded ship 1, destination: Mauritius
+ship 1 Departs towards Mauritius!
+Passenger 0 has boarded ship 1, destination: Mauritius
+Passenger 0 enjoying the ride to Mauritius: Yeahhh!
+Passenger 1 enjoying the ride to Mauritius: Yeahhh!
+Passenger 5 wants to go to Hawaii
+Passenger 5 has boarded ship 0, destination: Hawaii
+ship 0 Departs towards Hawaii!
+Passenger 3 enjoying the ride to Hawaii: Yeahhh!
+Passenger 5 enjoying the ride to Hawaii: Yeahhh!
+ship 3 arriving on dock 0
+Passenger 6 leaving the ship 3 which has 0 seats
+Passenger 9 leaving the ship 3 which has 0 seats
+ship 3 boarding to Hawaii now! With 2 seats
+Passenger 9 wants to go to Hawaii
+Passenger 9 has boarded ship 3, destination: Hawaii
+Passenger 2 wants to go to Hawaii
+Passenger 2 has boarded ship 3, destination: Hawaii
+ship 3 Departs towards Hawaii!
+Passenger 9 enjoying the ride to Hawaii: Yeahhh!
+Passenger 2 enjoying the ride to Hawaii: Yeahhh!
+Passenger 6 wants to go to Hawaii
+Passenger 7 wants to go to Hawaii
+ship 3 arriving on dock 0
+Passenger 2 leaving the ship 3 which has 0 seats
+Exception in thread "Thread-11" Passenger 9 leaving the ship 3 which has 0 seats
+ship 3 boarding to Hawaii now! With 2 seats
+Passenger 6 has boarded ship 3, destination: Hawaii
+ship 3 Departs towards Hawaii!
+Passenger 6 enjoying the ride to Hawaii: Yeahhh!
+java.lang.NullPointerException
+	at Passenger.run(Assignment2.java:102)
+ship 1 arriving on dock 0
+Passenger 1 leaving the ship 1 which has 0 seats
+Passenger 0 leaving the ship 1 which has 0 seats
+ship 1 boarding to Hawaii now! With 2 seats
+Passenger 1 wants to go to Hawaii
+Passenger 1 has boarded ship 1, destination: Hawaii
+ship 2 arriving on dock 1
+Passenger 4 leaving the ship 2 which has 0 seats
+Passenger 8 leaving the ship 2 which has 0 seats
+ship 2 boarding to Mauritius now! With 2 seats
+Passenger 0 wants to go to Mauritius
+Passenger 0 has boarded ship 2, destination: Mauritius
+Passenger 2 wants to go to Hawaii
+Passenger 2 has boarded ship 1, destination: Hawaii
+ship 1 Departs towards Hawaii!
+Passenger 1 enjoying the ride to Hawaii: Yeahhh!
+Passenger 2 enjoying the ride to Hawaii: Yeahhh!
+Passenger 4 wants to go to Mauritius
+Passenger 4 has boarded ship 2, destination: Mauritius
+ship 2 Departs towards Mauritius!
+Passenger 0 enjoying the ride to Mauritius: Yeahhh!
+Passenger 4 enjoying the ride to Mauritius: Yeahhh!
+ship 0 arriving on dock 0
+Passenger 5 leaving the ship 0 which has 0 seats
+Passenger 3 leaving the ship 0 which has 0 seats
+ship 0 boarding to Hawaii now! With 2 seats
+Passenger 8 wants to go to Hawaii
+Passenger 8 has boarded ship 0, destination: Hawaii
+Passenger 9 wants to go to Hawaii
+Passenger 9 has boarded ship 0, destination: Hawaii
+ship 0 Departs towards Hawaii!
+Passenger 8 enjoying the ride to Hawaii: Yeahhh!
+Passenger 9 enjoying the ride to Hawaii: Yeahhh!
+ship 3 arriving on dock 0
+Passenger 6 leaving the ship 3 which has 0 seats
+Passenger 3 wants to go to Hawaii
+Passenger 5 wants to go to Hawaii
+ship 1 arriving on dock 1
+Passenger 1 leaving the ship 1 which has 0 seats
+Passenger 2 leaving the ship 1 which has 0 seats
+ship 1 boarding to Mauritius now! With 2 seats
+Passenger 6 wants to go to Mauritius
+Passenger 6 has boarded ship 1, destination: Mauritius
+Passenger 1 wants to go to Mauritius
+Passenger 1 has boarded ship 1, destination: Mauritius
+ship 1 Departs towards Mauritius!
+Passenger 6 enjoying the ride to Mauritius: Yeahhh!
+Passenger 1 enjoying the ride to Mauritius: Yeahhh!
+ship 0 arriving on dock 1
+Passenger 8 leaving the ship 0 which has 0 seats
+Passenger 9 leaving the ship 0 which has 0 seats
+ship 0 boarding to Mauritius now! With 2 seats
+Passenger 2 wants to go to Hawaii
+Passenger 9 wants to go to Mauritius
+Passenger 9 has boarded ship 0, destination: Mauritius
+Passenger 8 wants to go to Hawaii
+ship 0 has finished its rides.
+Passenger 1 has finished its rides.
+Passenger 2 has finished its rides.
+Passenger 3 has finished its rides.
+ship 2 has finished its rides.
+Passenger 5 has finished its rides.
+Passenger 9 has finished its rides.
+ship 3 has finished its rides.
+Passenger 6 has finished its rides.
+Passenger 4 has finished its rides.
+Passenger 8 has finished its rides.
+Passenger 0 has finished its rides.
+ship 1 has finished its rides.
+Simulation finished.
