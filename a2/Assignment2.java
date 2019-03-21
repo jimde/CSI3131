@@ -74,7 +74,7 @@ class Passenger extends Thread {
     public void run() {
         int         stime;
         int         dest;
-        Ship   sh;
+        Ship        sh;
 
         while (enjoy) {
             try {
@@ -91,14 +91,14 @@ class Passenger extends Thread {
                 sh = sp.wait4Ship(dest);
 
                 // Should be executed after the ship is on the dock and taking passengers
-                System.out.println("Passenger " + id + " has boarded ship " + sh.id + ", destination: "+Assignment2.destName[dest]);
+                System.out.println("Passenger " + id + " has boarded ship " + sh.id + ", destination: " + Assignment2.destName[dest]);
 
                 // wait for launch
                 sh.wait4launch();
 
                 // Enjoy the ride
                 // Should be executed after the ship has launched.
-                System.out.println("Passenger "+id+" enjoying the ride to "+Assignment2.destName[dest]+ ": Yeahhh!");
+                System.out.println("Passenger " + id + " enjoying the ride to " + Assignment2.destName[dest] + ": Yeahhh!");
 
                 // wait for arriving
                 sh.wait4arriving();
@@ -123,6 +123,9 @@ class Ship extends Thread {
     private Harbour    sp;
     private boolean enjoy;
     // your code here (other local variables and semaphores)
+    public int numSeats;
+    private int dockNumber;
+    Semaphore passengerSem;
 
     // constructor
     public Ship(Harbour sp, int id) {
@@ -131,6 +134,8 @@ class Ship extends Thread {
         enjoy = true;
 
         // your code here (local variable and semaphore initializations)
+        this.dockNumber = -1;
+        this.passengerSem = new Semaphore(2);
     }
 
     // the ship thread executes this
@@ -167,7 +172,7 @@ class Ship extends Thread {
                 enjoy = false; // have been interrupted, probably by the main program, terminate
             }
         }
-        System.out.println("ship "+id+" has finished its rides.");
+        System.out.println("ship " + id + " has finished its rides.");
     }
 
 
@@ -175,12 +180,14 @@ class Ship extends Thread {
     // called by the passengers leaving the ship
     public void leave()  throws InterruptedException  {
         // your code here
+        this.passengerSem.signalSem();
     }
 
     // called by the passengers sitting in the ship, to wait
     // until the launch
     public void wait4launch()  throws InterruptedException {
         // your code here
+        // this.sp.
     }
 
     // called by the bored passengers sitting in the ship, to wait
@@ -191,11 +198,12 @@ class Ship extends Thread {
 }
 
 
-/* The class implementing the Airport. */
+/* The class implementing the Harbour. */
 /* This might be convenient place to put lots of the synchronization code into */
 class Harbour {
     Ship[] docks; // what is sitting on a given dock
     // your code here (other local variables and semaphores)
+    Semaphore dockSem;
 
     // constructor
     public Harbour() {
@@ -211,7 +219,7 @@ class Harbour {
         }
 
         // your code here (local variable and semaphore initializations)
-
+        this.dockSem = new Semaphore(2);
     }
 
     // called by a passenger wanting to go to the given destination
@@ -220,7 +228,16 @@ class Harbour {
     public Ship wait4Ship(int dest) throws InterruptedException {
         // your code here
 
-    	return new Ship();
+        while (true) {
+            try {
+                if (docks[0].)
+            } catch (Exception e) {
+                ;
+            }
+        }
+
+
+    	// return new Ship();
     }
 
     // called by an ship to tell the harbour that it is accepting passengers now to destination dest
@@ -236,6 +253,12 @@ class Harbour {
     // Try to rotate the docks so that no destination is starved
     public int wait4arriving(Ship sh)  throws InterruptedException  {
         // your code here
+        this.dockSem.waitSem();
+        if (this.docks[0] == null) {
+            return 0;
+        } else if (this.docks[1] == null) {
+            return 1;
+        }
 
         return 0;
     }
@@ -244,6 +267,8 @@ class Harbour {
     // harbour that the dock has been emptied
     public void launch(int dest) throws InterruptedException {
         // your code here
+        this.dockSem.signalSem();
+
 
     }
 }
