@@ -50,7 +50,6 @@ public class Assignment2 {
             try {passengers[i].interrupt();} catch (Exception e) { }
 
         // Wait until everybody else is finished
-        // your code here
         for (int i = 0; i < SHIPS; i++)
             try {sships[i].join();} catch (Exception e) { e.printStackTrace(); }
         for (int i = 0; i < PASSENGERS; i++)
@@ -121,17 +120,17 @@ class Passenger extends Thread {
                 enjoy = false; // have been interrupted, probably by the main program, terminate
             }
        }
+       sp.stop = true;
        System.out.println("Passenger " + id + " has finished its rides.");
     }
 }
 
 /* The class simulating an ship */
-// Now, here you will have to implement several methods
 class Ship extends Thread {
     public int         id;
     private Harbour    sp;
     private boolean enjoy;
-    // your code here (other local variables and semaphores)
+
     public int numSeats;
     private Semaphore passengerSem;
     private boolean docked;
@@ -142,7 +141,6 @@ class Ship extends Thread {
         this.id = id;
         enjoy = true;
 
-        // your code here (local variable and semaphore initializations)
         passengerSem = new Semaphore(2);
         numSeats = 2;
         docked = false;
@@ -165,8 +163,12 @@ class Ship extends Thread {
                 // Tell the passengers that we have arrived
 
                 // Wait until all passengers leave
-                while (numSeats < 2) {
-                    sleep(1);
+                try {
+                    while (numSeats < 2) {
+                        sleep(1);
+                    }
+                } catch (InterruptedException e) {
+                    throw new InterruptedException();
                 }
                 sp.boarding(dest);
 
@@ -175,8 +177,12 @@ class Ship extends Thread {
                 // the passengers can start to board now
 
                 // Wait until full of passengers
-                while (numSeats > 0) {
-                    sleep(1);
+                try {
+                    while (numSeats > 0) {
+                        sleep(1);
+                    }
+                } catch (InterruptedException e) {
+                    throw new InterruptedException();
                 }
 
                 // 4, 3, 2, 1, Start!
@@ -193,6 +199,7 @@ class Ship extends Thread {
                 enjoy = false; // have been interrupted, probably by the main program, terminate
             }
         }
+        sp.stop = true;
         System.out.println("ship " + id + " has finished its rides.");
     }
 
@@ -200,7 +207,6 @@ class Ship extends Thread {
     // service functions to passengers
     // called by the passengers leaving the ship
     public void leave()  throws InterruptedException  {
-        // your code here
         passengerSem.signalSem();
         numSeats += 1;
     }
@@ -208,11 +214,12 @@ class Ship extends Thread {
     // called by the passengers sitting in the ship, to wait
     // until the launch
     public void wait4launch()  throws InterruptedException {
-        // your code here
-
-        // wait until ship is fully loaded
-        while (numSeats > 0) {
-            sleep(1);
+        try {
+            while (numSeats > 0) {
+                sleep(1);
+            }
+        } catch (InterruptedException e) {
+            throw new InterruptedException();
         }
         sleep(2);
     }
@@ -220,15 +227,22 @@ class Ship extends Thread {
     // called by the bored passengers sitting in the ship, to wait
     // until arriving
     public void wait4arriving()  throws InterruptedException {
-        // your code here
-        while (!docked) {
-            sleep(1);
+        try {
+            while (!docked) {
+                sleep(1);
+            }
+        } catch (InterruptedException e) {
+            throw new InterruptedException();
         }
     }
 
     public void passengerBoarding() throws InterruptedException {
-        passengerSem.waitSem();
-        numSeats -= 1;
+        try {
+            passengerSem.waitSem();
+            numSeats -= 1;
+        } catch (InterruptedException e) {
+            throw new InterruptedException();
+        }
     }
 }
 
@@ -237,53 +251,50 @@ class Ship extends Thread {
 /* This might be convenient place to put lots of the synchronization code into */
 class Harbour {
     Ship[] docks; // what is sitting on a given dock
-    // your code here (other local variables and semaphores)
     private Semaphore dockSem;
+    private boolean[] boarding;
+    public boolean stop;
 
     // constructor
     public Harbour() {
         docks = new Ship[Assignment2.DESTINATIONS];
-
+        boarding = new boolean[Assignment2.DESTINATIONS];
 
         // docks[] is an array containing the ships sitting on corresponding docks
         // Value null means the dock is empty
         for(int i = 0; i < Assignment2.DESTINATIONS; i++){
             docks[i] = null;
+            boarding[i] = false;
         }
 
-        // your code here (local variable and semaphore initializations)
         dockSem = new Semaphore(2);
+        stop = false;
     }
 
     // called by a passenger wanting to go to the given destination
     // returns the ship he/she boarded
     // Careful here, as the dock might be empty at this moment
     public Ship wait4Ship(int dest) throws InterruptedException {
-        // your code here
-
         while (true) {
             try {
                 docks[dest].passengerBoarding();
                 return docks[dest];
             }
             catch (IndexOutOfBoundsException e) {}
-            catch (NullPointerException e) {}
-            // catch (InterruptedException e) {
-            //     System.out.println("ASDF");
-            //     // throw new InterruptedException();
-            //     return null;
-            // }
+            catch (NullPointerException e) {
+                if (stop) {
+                    throw new InterruptedException();
+                }
+            } catch (InterruptedException e) {
+                throw new InterruptedException();
+            }
         }
-
-
 
     }
 
     // called by an ship to tell the harbour that it is accepting passengers now to destination dest
     public void boarding(int dest) throws InterruptedException {
-        // your code here
-
-
+        boarding[dest] = true;
     }
 
     // Called by an ship returning from a trip
@@ -291,9 +302,6 @@ class Harbour {
     // until there is an empty dock).
     // Try to rotate the docks so that no destination is starved
     public int wait4arriving(Ship sh)  throws InterruptedException  {
-        // your code here
-
-        // get semaphore if available, else wait
         dockSem.waitSem();
 
         // choose random dock to attempt to dock
@@ -313,10 +321,7 @@ class Harbour {
     // called by an ship when it Departs, to inform the
     // harbour that the dock has been emptied
     public void launch(int dest) throws InterruptedException {
-        // your code here
         docks[dest] = null;
         dockSem.signalSem();
-
-
     }
 }
