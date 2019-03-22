@@ -234,6 +234,7 @@ class Ship extends Thread {
         } catch (InterruptedException e) {
             throw new InterruptedException();
         }
+        sleep(15);
     }
 
     public void passengerBoarding() throws InterruptedException {
