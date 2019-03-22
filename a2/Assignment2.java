@@ -1,4 +1,10 @@
-import java.util.Random;
+/* CSI3131 W2019 - Assignment 2
+ *
+ * Jimmy Deng
+ * 8194330
+ */
+
+ import java.util.Random;
 
 /***************************************************************************************/
 //  Provide code for the methods in the classes Ships and Harbour, and in one place
@@ -15,7 +21,6 @@ public class Assignment2 {
     final static String[] destName = {"Hawaii", "Mauritius"};
 
     public static void main(String args[]) throws InterruptedException{
-        int i;
         Ship[] sships = new Ship[SHIPS];
         Passenger[] passengers = new Passenger[PASSENGERS];
 
@@ -23,15 +28,15 @@ public class Assignment2 {
         Harbour sp = new Harbour();
 
         /* create ships and passengers*/
-        for (i=0; i<SHIPS; i++)
+        for (int i = 0; i < SHIPS; i++)
             sships[i] = new Ship(sp, i);
-        for (i=0; i<PASSENGERS; i++)
+        for (int i = 0; i < PASSENGERS; i++)
             passengers[i] = new Passenger(sp, i);
 
         /* now launch them */
-        for (i=0; i<SHIPS; i++)
+        for (int i = 0; i < SHIPS; i++)
             sships[i].start();
-        for (i=0; i<PASSENGERS; i++)
+        for (int i = 0; i < PASSENGERS; i++)
             passengers[i].start();
 
         // let them enjoy for 20 seconds
@@ -39,13 +44,17 @@ public class Assignment2 {
 
         /* now stop them */
         // note how we are using deferred cancellation
-        for (i=0; i<SHIPS; i++)
+        for (int i = 0; i < SHIPS; i++)
             try {sships[i].interrupt();} catch (Exception e) { }
-        for (i=0; i<PASSENGERS; i++)
+        for (int i = 0; i < PASSENGERS; i++)
             try {passengers[i].interrupt();} catch (Exception e) { }
 
         // Wait until everybody else is finished
         // your code here
+        for (int i = 0; i < SHIPS; i++)
+            try {sships[i].join();} catch (Exception e) { e.printStackTrace(); }
+        for (int i = 0; i < PASSENGERS; i++)
+            try {passengers[i].join();} catch (Exception e) { e.printStackTrace(); }
 
         // This should be the last thing done by this program:
         System.out.println("Simulation finished.");
@@ -112,7 +121,7 @@ class Passenger extends Thread {
                 enjoy = false; // have been interrupted, probably by the main program, terminate
             }
        }
-       System.out.println("Passenger "+id+" has finished its rides.");
+       System.out.println("Passenger " + id + " has finished its rides.");
     }
 }
 
@@ -124,8 +133,8 @@ class Ship extends Thread {
     private boolean enjoy;
     // your code here (other local variables and semaphores)
     public int numSeats;
-    private int dockNumber;
-    Semaphore passengerSem;
+    private Semaphore passengerSem;
+    private boolean docked;
 
     // constructor
     public Ship(Harbour sp, int id) {
@@ -134,8 +143,9 @@ class Ship extends Thread {
         enjoy = true;
 
         // your code here (local variable and semaphore initializations)
-        this.dockNumber = -1;
-        this.passengerSem = new Semaphore(2);
+        passengerSem = new Semaphore(2);
+        numSeats = 2;
+        docked = false;
     }
 
     // the ship thread executes this
@@ -147,26 +157,37 @@ class Ship extends Thread {
             try {
                 // Wait until there an empty arriving dock, then arrive
                 dest = sp.wait4arriving(this);
+                docked = true;
+                sleep(10);
 
                 System.out.println("ship " + id + " arriving on dock " + dest);
 
                 // Tell the passengers that we have arrived
 
                 // Wait until all passengers leave
+                while (numSeats < 2) {
+                    sleep(1);
+                }
+                sp.boarding(dest);
 
-                System.out.println("ship " + id + " boarding to "+Assignment2.destName[dest]+" now! With " + numSeats + " seats");
+                System.out.println("ship " + id + " boarding to " + Assignment2.destName[dest] + " now! With " + numSeats + " seats");
 
                 // the passengers can start to board now
 
                 // Wait until full of passengers
+                while (numSeats > 0) {
+                    sleep(1);
+                }
 
                 // 4, 3, 2, 1, Start!
-                System.out.println("ship " + id + " Departs towards "+Assignment2.destName[dest]+"!");
+                System.out.println("ship " + id + " Departs towards " + Assignment2.destName[dest] + "!");
 
                 // tell the passengers we have launched, so they can enjoy now ;-)
+                sp.launch(dest);
+                docked = false;
 
                 // Sail in water
-                stime = 500+(int) (1500*Math.random());
+                stime = 500 + (int)(1500*Math.random());
                 sleep(stime);
             } catch (InterruptedException e) {
                 enjoy = false; // have been interrupted, probably by the main program, terminate
@@ -180,20 +201,34 @@ class Ship extends Thread {
     // called by the passengers leaving the ship
     public void leave()  throws InterruptedException  {
         // your code here
-        this.passengerSem.signalSem();
+        passengerSem.signalSem();
+        numSeats += 1;
     }
 
     // called by the passengers sitting in the ship, to wait
     // until the launch
     public void wait4launch()  throws InterruptedException {
         // your code here
-        // this.sp.
+
+        // wait until ship is fully loaded
+        while (numSeats > 0) {
+            sleep(1);
+        }
+        sleep(2);
     }
 
     // called by the bored passengers sitting in the ship, to wait
     // until arriving
     public void wait4arriving()  throws InterruptedException {
         // your code here
+        while (!docked) {
+            sleep(1);
+        }
+    }
+
+    public void passengerBoarding() throws InterruptedException {
+        passengerSem.waitSem();
+        numSeats -= 1;
     }
 }
 
@@ -203,23 +238,21 @@ class Ship extends Thread {
 class Harbour {
     Ship[] docks; // what is sitting on a given dock
     // your code here (other local variables and semaphores)
-    Semaphore dockSem;
+    private Semaphore dockSem;
 
     // constructor
     public Harbour() {
-        int i;
-
         docks = new Ship[Assignment2.DESTINATIONS];
 
 
         // docks[] is an array containing the ships sitting on corresponding docks
         // Value null means the dock is empty
-        for(i=0; i<Assignment2.DESTINATIONS; i++){
+        for(int i = 0; i < Assignment2.DESTINATIONS; i++){
             docks[i] = null;
         }
 
         // your code here (local variable and semaphore initializations)
-        this.dockSem = new Semaphore(2);
+        dockSem = new Semaphore(2);
     }
 
     // called by a passenger wanting to go to the given destination
@@ -230,14 +263,20 @@ class Harbour {
 
         while (true) {
             try {
-                if (docks[0].)
-            } catch (Exception e) {
-                ;
+                docks[dest].passengerBoarding();
+                return docks[dest];
             }
+            catch (IndexOutOfBoundsException e) {}
+            catch (NullPointerException e) {}
+            // catch (InterruptedException e) {
+            //     System.out.println("ASDF");
+            //     // throw new InterruptedException();
+            //     return null;
+            // }
         }
 
 
-    	// return new Ship();
+
     }
 
     // called by an ship to tell the harbour that it is accepting passengers now to destination dest
@@ -253,21 +292,30 @@ class Harbour {
     // Try to rotate the docks so that no destination is starved
     public int wait4arriving(Ship sh)  throws InterruptedException  {
         // your code here
-        this.dockSem.waitSem();
-        if (this.docks[0] == null) {
-            return 0;
-        } else if (this.docks[1] == null) {
-            return 1;
-        }
 
-        return 0;
+        // get semaphore if available, else wait
+        dockSem.waitSem();
+
+        // choose random dock to attempt to dock
+        int dockToAttempt = (int)(((double) Assignment2.DESTINATIONS)*Math.random());
+
+        if (docks[dockToAttempt] == null) {
+            docks[dockToAttempt] = sh;
+            return dockToAttempt;
+        } else if (docks[1-dockToAttempt] == null) {
+            docks[1-dockToAttempt] = sh;
+            return 1-dockToAttempt;
+        } else {
+            return -1;
+        }
     }
 
     // called by an ship when it Departs, to inform the
     // harbour that the dock has been emptied
     public void launch(int dest) throws InterruptedException {
         // your code here
-        this.dockSem.signalSem();
+        docks[dest] = null;
+        dockSem.signalSem();
 
 
     }
