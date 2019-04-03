@@ -1,0 +1,37 @@
+// memset  virt page #  physical page # P (present) R (read from)  M (modified) U (used) inMemTime (ns) lastTouchTime (ns)
+memset 0 20 1 0 0 1 22 50
+memset 1 14 1 0 0 1 18 20
+memset 2 11 1 0 0 1 45 55
+memset 3 24 1 0 0 0 8 15
+memset 4 22 1 0 0 1 23 51
+memset 5 0 1 0 0 1 19 21
+memset 6 1 1 0 0 1 46 56
+memset 7 31 1 0 0 0 9 16
+memset 8 30 1 0 0 1 23 51
+memset 9 19 1 0 0 1 19 21
+memset 10 16 1 0 0 1 46 56
+memset 11 18 1 0 0 0 9 16
+
+// enable_logging 'true' or 'false'
+// When true specify a log_file or leave blank for stdout
+enable_logging true
+
+// log_file <FILENAME>
+// Where <FILENAME> is the name of the file you want output
+// to be print to.
+log_file tracefile4.log
+
+// page size, defaults to 2^12 and cannot be greater than 2^26
+// pagesize <single page size (base 10)> or <'power' num (base 2)>
+pagesize power 10
+
+// addressradix sets the radix in which numerical values are displayed
+// 2 is the default value
+// addressradix <radix>
+addressradix 10
+
+// numpages sets the number of virtual pages
+// 64 is the default value
+// numpages must be at least 3 and no more than 64
+// numpages <num>
+numpages 32
