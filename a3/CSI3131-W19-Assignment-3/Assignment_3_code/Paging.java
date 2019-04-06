@@ -220,12 +220,85 @@ public class Paging {
 	// complete this method
 	// <----------------------------------------------------------------------------
 	public int replacePgLRU(int replacePageNum) {
+		int oldPageNum;
+		int freedFrame;
+
+		int lastTouchTime = Integer.MAX_VALUE;
+		int LRUIndex = -1;
+		for (int i = 0; i < pageTable.length; ++i) {
+			if (pageTable[i].frame != -1) {
+				if (pageTable[i].lastTouchTime < lastTouchTime) {
+					lastTouchTime = pageTable[i].lastTouchTime;
+					LRUIndex = i;
+				}
+			}
+		}
+
+		oldPageNum = LRUIndex;
+		
+		freedFrame = pageTable[oldPageNum].frame; // get frame number
+
+		updatePageTableEntry(oldPageNum, -1, (byte) 0, (byte) 0, (byte) 0,
+							 (byte) 0, 0, 0);
+		controlPanel.removePhysicalPage(oldPageNum);
+		
+		// Assign the Free frame to the requesting page
+		// add link to frame
+		updatePageTableEntry(replacePageNum, freedFrame, (byte) 1, (byte) 0,
+							 (byte) 0, (byte) 0, kernel.clock, 0);
+		controlPanel.addPhysicalPage(replacePageNum, freedFrame);
+
+		// logging and leave
+		logReplacement(oldPageNum, replacePageNum, freedFrame);
 		return (replacePageNum);
 	}
 	
+
+	private void cycleBufPointer() {
+		bufPointer++; // move to next
+		if (bufPointer == numPhysicalPages) // cycle to start if at end
+			bufPointer = 0;
+	}
+
+	public int addPageBufClock(int virtualPageNum) {
+		int removePageNum = -1;
+		while (true) {
+			removePageNum = pageBuffer[bufPointer]; // get value at pointer
+			if (pageTable[removePageNum].u == 1) {
+				pageTable[removePageNum].u = 0;
+				cycleBufPointer();
+			} else {
+				break;
+			}
+		}
+
+		pageBuffer[bufPointer] = virtualPageNum; // replace it
+
+		cycleBufPointer();
+		
+		return (removePageNum); // return number removed
+	}
 	// complete this method
 	// <----------------------------------------------------------------------------
 	public int replacePgCLOCK(int replacePageNum) {
+		int oldPageNum;
+		int freedFrame;
+
+		oldPageNum = addPageBufClock(replacePageNum); // replaces virtual page number
+		freedFrame = pageTable[oldPageNum].frame; // get frame number
+
+		updatePageTableEntry(oldPageNum, -1, (byte) 0, (byte) 0, (byte) 0,
+							 (byte) 0, 0, 0);
+		controlPanel.removePhysicalPage(oldPageNum);
+		
+		// Assign the Free frame to the requesting page
+		// add link to frame
+		updatePageTableEntry(replacePageNum, freedFrame, (byte) 1, (byte) 0,
+							 (byte) 0, (byte) 1, kernel.clock, 0);
+		controlPanel.addPhysicalPage(replacePageNum, freedFrame);
+
+		// logging and leave
+		logReplacement(oldPageNum, replacePageNum, freedFrame);
 		return (replacePageNum);
 	}
 	
